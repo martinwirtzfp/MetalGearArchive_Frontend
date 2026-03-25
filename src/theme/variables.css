@@ -1,2 +1,31 @@
-/* For information on how to create your own theme, please refer to:
-http://ionicframework.com/docs/theming/ */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Oxanium:wght@400;600;700&family=Rajdhani:wght@400;500;600&display=swap');
+
+:root {
+	--ion-font-family: 'Rajdhani', sans-serif;
+
+	--ion-color-primary: #8bcf8c;
+	--ion-color-primary-rgb: 139, 207, 140;
+	--ion-color-primary-contrast: #09100b;
+	--ion-color-primary-shade: #7ab67b;
+	--ion-color-primary-tint: #97d598;
+
+	--ion-color-dark: #0b0f0c;
+	--ion-color-dark-rgb: 11, 15, 12;
+
+	--ion-background-color: #0d1410;
+	--ion-background-color-rgb: 13, 20, 16;
+	--ion-text-color: #dce7d4;
+	--ion-toolbar-background: rgba(14, 22, 17, 0.92);
+	--ion-toolbar-color: #dcf0d2;
+	--ion-item-background: rgba(17, 24, 20, 0.86);
+	--ion-border-color: rgba(157, 202, 154, 0.25);
+}
+
+ion-title {
+	font-family: 'Oxanium', sans-serif;
+	letter-spacing: 0.04em;
+}
+
+ion-content {
+	--background: radial-gradient(circle at 18% 14%, #24352a 0%, #101712 45%, #090d0a 100%);
+}

@@ -5,44 +5,38 @@
         <ion-buttons slot="start">
           <ion-back-button default-href="/menu"></ion-back-button>
         </ion-buttons>
-        <ion-title>Juegos</ion-title>
+        <ion-title>Organizaciones</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Juegos</ion-title>
-        </ion-toolbar>
-      </ion-header>
-
       <div v-if="errorMessage" class="error-container">
         <p>{{ errorMessage }}</p>
-        <ion-button size="small" fill="outline" @click="loadGames">Reintentar</ion-button>
+        <ion-button size="small" fill="outline" @click="loadOrganizations">Reintentar</ion-button>
       </div>
 
       <div v-if="loading" class="loading-container">
         <ion-spinner></ion-spinner>
-        <p>Cargando juegos...</p>
+        <p>Cargando organizaciones...</p>
       </div>
 
-      <div v-else-if="games.length === 0" class="empty-container">
-        <p>No hay juegos disponibles</p>
+      <div v-else-if="organizations.length === 0" class="empty-container">
+        <p>No hay organizaciones disponibles</p>
       </div>
 
       <ion-list v-else>
-        <ion-item v-for="game in games" :key="game.id" button :router-link="`/juegos/${game.id}`">
+        <ion-item v-for="organization in organizations" :key="organization.id" button :router-link="`/organizaciones/${organization.id}`">
           <ion-thumbnail slot="start">
             <EntityImage
-              entityType="games"
-              :name="game.name"
-              :fallback-url="game.imageUrl"
-              :alt="game.name"
+              entityType="organizations"
+              :name="organization.name"
+              :fallback-url="organization.imageUrl"
+              :alt="organization.name"
             />
           </ion-thumbnail>
           <ion-label>
-            <h2>{{ game.name }}</h2>
-            <p>Año: {{ game.releaseYear }}</p>
-            <p class="secondary">{{ game.synopsis.substring(0, 60) }}...</p>
+            <h2>{{ organization.name }}</h2>
+            <p>{{ organization.type }}</p>
+            <p class="secondary">HQ: {{ organization.headquarters }}</p>
           </ion-label>
         </ion-item>
       </ion-list>
@@ -52,20 +46,34 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, IonThumbnail, IonSpinner, IonButtons, IonBackButton, IonButton } from '@ionic/vue';
-import { gameService, type Game } from '@/services/gameService';
+import {
+  IonBackButton,
+  IonButtons,
+  IonContent,
+  IonHeader,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonPage,
+  IonButton,
+  IonSpinner,
+  IonThumbnail,
+  IonTitle,
+  IonToolbar,
+} from '@ionic/vue';
+import { organizationService, type Organization } from '@/services/organizationService';
 import EntityImage from '@/components/EntityImage.vue';
 import { getNetworkErrorMessage } from '@/services/networkError';
 
-const games = ref<Game[]>([]);
+const organizations = ref<Organization[]>([]);
 const loading = ref(true);
 const errorMessage = ref('');
 
-const loadGames = async () => {
+const loadOrganizations = async () => {
   loading.value = true;
   errorMessage.value = '';
   try {
-    games.value = await gameService.getAll();
+    organizations.value = await organizationService.getAll();
   } catch (error) {
     errorMessage.value = getNetworkErrorMessage(error);
   } finally {
@@ -74,7 +82,7 @@ const loadGames = async () => {
 };
 
 onMounted(async () => {
-  await loadGames();
+  await loadOrganizations();
 });
 </script>
 

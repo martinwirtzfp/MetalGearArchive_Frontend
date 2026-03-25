@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router';
+import { initUiAudio, playUiPulse } from './utils/uiAudio';
 
 import { IonicVue } from '@ionic/vue';
 
@@ -39,5 +40,9 @@ const app = createApp(App)
   .use(router);
 
 router.isReady().then(() => {
+  initUiAudio();
+  router.afterEach(() => {
+    playUiPulse(720, 0.045);
+  });
   app.mount('#app');
 });

@@ -1,33 +1,66 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import TabsPage from '../views/TabsPage.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/tabs/tab1'
+    redirect: '/menu'
   },
   {
-    path: '/tabs/',
-    component: TabsPage,
-    children: [
-      {
-        path: '',
-        redirect: '/tabs/tab1'
-      },
-      {
-        path: 'tab1',
-        component: () => import('@/views/Tab1Page.vue')
-      },
-      {
-        path: 'tab2',
-        component: () => import('@/views/Tab2Page.vue')
-      },
-      {
-        path: 'tab3',
-        component: () => import('@/views/Tab3Page.vue')
-      }
-    ]
+    path: '/menu',
+    component: () => import('@/views/MainMenuPage.vue')
+  },
+  {
+    path: '/personajes',
+    component: () => import('@/views/Tab1Page.vue')
+  },
+  {
+    path: '/personajes/:id',
+    component: () => import('@/views/CharacterDetailPage.vue')
+  },
+  {
+    path: '/juegos',
+    component: () => import('@/views/Tab2Page.vue')
+  },
+  {
+    path: '/juegos/:id',
+    component: () => import('@/views/GameDetailPage.vue')
+  },
+  {
+    path: '/eventos',
+    component: () => import('@/views/Tab3Page.vue')
+  },
+  {
+    path: '/eventos/:id',
+    component: () => import('@/views/EventDetailPage.vue')
+  },
+  {
+    path: '/lugares',
+    component: () => import('@/views/LocationsPage.vue')
+  },
+  {
+    path: '/lugares/:id',
+    component: () => import('@/views/LocationDetailPage.vue')
+  },
+  {
+    path: '/organizaciones',
+    component: () => import('@/views/OrganizationsPage.vue')
+  },
+  {
+    path: '/organizaciones/:id',
+    component: () => import('@/views/OrganizationDetailPage.vue')
+  },
+  {
+    path: '/tabs/tab1',
+    redirect: '/personajes'
+  },
+  {
+    path: '/tabs/tab2',
+    redirect: '/juegos'
+  },
+  {
+    path: '/tabs/tab3',
+    redirect: '/eventos'
   }
 ]
 
